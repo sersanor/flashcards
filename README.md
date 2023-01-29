@@ -4,8 +4,8 @@
 This is a personal project to build a FREE standalone solution to use flashcards in order to memorize or to help study any topic using questions and answers flashcards.
 
 ## Demo
-[Flashcards (flashcards embed in JS)](https://sersanor.github.io/flashcards)
-[English irregular verbs Flashcards](https://sersanor.github.io/flashcards?flashcards=https://raw.githubusercontent.com/sersanor/flashcards/main/collections/english-irregular-verbs.json)
+- [Flashcards (flashcards embed in JS)](https://sersanor.github.io/flashcards)
+- [English irregular verbs Flashcards](https://sersanor.github.io/flashcards?flashcards=https://raw.githubusercontent.com/sersanor/flashcards/main/collections/english-irregular-verbs.json)
 
 ## Features
 - Standalone solution to train with flashcards.
