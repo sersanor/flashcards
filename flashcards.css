@@ -1,0 +1,103 @@
+    body {
+      background-color: #f2f2f2;
+    }
+    
+    /* flashcard container */
+    #flashcard-container {
+      width: 80%;
+      max-width: 600px;
+      height: 200px;
+      margin: 50px auto;
+      border-radius: 20px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 24px;
+      padding: 20px;
+      background-color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* flip animation */
+    #flashcard-container.flip {
+      transform: rotateY(180deg);
+    }
+    
+    /* front and back of flashcard */
+    #flashcard-container .front, #flashcard-container .back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      transition: 1s;
+    }
+    
+    /* back of flashcard */
+    #flashcard-container .back {
+      transform: rotateY(180deg);
+    }
+    
+    /* next and previous buttons */
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 20px;
+      transition: 0.2s;
+    }
+    
+    /* next button */
+    #next-button {
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+    }
+    #next-button:hover {
+      background-color: #3e8e41;
+    }
+    
+    /* previous button */
+    #previous-button {
+      background-color: #ff9800;
+      color: #ffffff;
+      border: none;
+    }
+    #previous-button:hover {
+      background-color: #e67e22;
+    }
+    
+    /* flip button */
+    #flip-button {
+      background-color: #2196F3;
+      color: #ffffff;
+      border: none;
+      clear: both;
+    }
+    #flip-button:hover {
+      background-color: #0d47a1;
+    }
+    
+    #flashcard-footer-buttons {
+      text-align: center;
+    }
+    #flashcard-top-buttons {
+      text-align: center;
+    }
+    
+    #shuffle-button {
+      background-color: #272727;
+      color: #ffffff;
+      border: none;
+    }
+    #shuffle-button:hover {
+      background-color: #424242;
+    }
+
+    #loadURL-button {
+      background-color: #272727;
+      color: #ffffff;
+      border: none;
+    }
+    #loadURL-button:hover {
+      background-color: #424242;
+    }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Flashcards</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+    
+    /* flashcard container */
+    #flashcard-container {
+      width: 80%;
+      max-width: 600px;
+      height: 400px;
+      margin: 50px auto;
+      border-radius: 20px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 24px;
+      padding: 20px;
+      background-color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* flip animation */
+    #flashcard-container.flip {
+      transform: rotateY(180deg);
+    }
+    
+    /* front and back of flashcard */
+    #flashcard-container .front, #flashcard-container .back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      transition: 1s;
+    }
+    
+    /* back of flashcard */
+    #flashcard-container .back {
+      transform: rotateY(180deg);
+    }
+    
+    /* next and previous buttons */
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 20px;
+      transition: 0.2s;
+    }
+    
+    /* next button */
+    #next-button {
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+    }
+    #next-button:hover {
+      background-color: #3e8e41;
+    }
+    
+    /* previous button */
+    #previous-button {
+      background-color: #ff9800;
+      color: #ffffff;
+      border: none;
+    }
+    #previous-button:hover {
+      background-color: #e67e22;
+    }
+    
+    /* flip button */
+    #flip-button {
+      background-color: #2196F3;
+      color: #ffffff;
+      border: none;
+      clear: both;
+    }
+    #flip-button:hover {
+      background-color: #0d47a1;
+    }
+    
+    #flashcard-footer-buttons {
+      text-align: center;
+    }
+    #flashcard-top-buttons {
+      text-align: center;
+    }
+    
+    #shuffle-button {
+      background-color: #272727;
+      color: #ffffff;
+      border: none;
+    }
+    #shuffle-button:hover {
+      background-color: #424242;
+    }
+
+    #loadURL-button {
+      background-color: #272727;
+      color: #ffffff;
+      border: none;
+    }
+    #loadURL-button:hover {
+      background-color: #424242;
+    }
+  </style>
+</head>
+<body>
+  <div id="score"></div>
+  <div id="flashcard-top-buttons">
+    <button id="shuffle-button">Shuffle</button>
+    <button id="loadURL-button">Load JSON</button>
+  </div>
+  <div id="flashcard-container"></div>
+  <div id="flashcard-footer-buttons">
+    <button id="previous-button">Previous</button>
+    <button id="flip-button">Flip</button>
+    <button id="next-button">Next</button>
+  </div>
+  
+  <script>
+    // JSON data for flashcards
+    flashcards = [
+    {
+      question: "What is the capital of France?",
+      answer: "Paris"
+    },
+    {
+      question: "What is the largest ocean on Earth?",
+      answer: "Pacific Ocean"
+    },
+    {
+      question: "Who invented the telephone?",
+      answer: "Alexander Graham Bell"
+    }
+    ];
+    
+    document.getElementById("shuffle-button").addEventListener("click", function() {
+      flashcards = shuffleArray(flashcards);
+      currentCard = 0;
+      updateFlashcard();
+    });
+    
+    // function to shuffle an array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    
+    document.getElementById("loadURL-button").addEventListener("click", function() {
+      var url = prompt("Please enter the URL to load the flashcards from:");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          flashcards = data;
+          currentCard = 0;
+          updateFlashcard();
+        }
+      };
+      xhr.send();
+    });
+    
+    // Variables for current flashcard
+    let currentIndex = 0;
+    let currentSide = "question";
+    var correctAnswers = 0;
+    var totalAnswers = 0;
+    
+    // Function to update the flashcard
+    function updateFlashcard() {
+      const flashcard = flashcards[currentIndex];
+      const flashcardContainer = document.getElementById("flashcard-container");
+      
+      if (currentSide === "question") {
+        flashcardContainer.innerHTML = flashcard.question;
+      } else {
+        flashcardContainer.innerHTML = flashcard.answer;
+      }
+    }
+    
+    // Event listeners for next and previous buttons
+    document.getElementById("next-button").addEventListener("click", function() {
+      currentIndex++;
+      if (currentIndex >= flashcards.length) {
+        currentIndex = 0;
+      }
+      updateFlashcard();
+    });
+    
+    document.getElementById("previous-button").addEventListener("click", function() {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = flashcards.length - 1;
+      }
+      updateFlashcard();
+    });
+    
+    // Event listener for flip button
+    document.getElementById("flip-button").addEventListener("click", function() {
+      if (currentSide === "question") {
+        currentSide = "answer";
+      } else {
+        currentSide = "question";
+      }
+      updateFlashcard();
+    });
+    
+    // function to update the score
+    function updateScore() {
+      var score = document.getElementById("score");
+      score.innerHTML = "Score: " + correctAnswers + "/" + totalAnswers + " (" + 
+      (correctAnswers / totalAnswers * 100).toFixed(2) + "%)";
+    }
+    
+    // Initialize the flashcard
+    
+    document.addEventListener("DOMContentLoaded", function(){
+      //loadFlashcards();
+      updateFlashcard();
+    });
+
+    // Keyboard listener
+    document.addEventListener("keydown", function(event) {
+      switch (event.keyCode) {
+        case 37: document.getElementById("previous-button").click(); break; // Left
+        case 38: document.getElementById("flip-button").click(); break; // Up
+        case 39: document.getElementById("next-button").click(); break; // Right
+        case 40: document.getElementById("flip-button").click(); break; // Up
+      }
+});
+  </script>
+</body>
+</html>
