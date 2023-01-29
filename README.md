@@ -10,7 +10,7 @@ This is a personal project to build a standalone solution to use flashcards in o
 - Shuffle button to randomize the flashcards.
 - Load button to load a JSON flashcard collection remotely.
 - Load a JSON flashcard collection using the remote url (query param "flashcards").
-    e.g. xxx/index.html?flashcards=<URL_TO_JSON_FLASHCARD_COLLECTION>
+-- e.g. xxx/index.html?flashcards=<URL_TO_JSON_FLASHCARD_COLLECTION>
 
 ## Changelog
 - 29/01/2023: Load flashcards from url
