@@ -16,8 +16,22 @@ This is a personal project to build a FREE standalone solution to use flashcards
 - Load a JSON flashcard collection using the remote url (query param "flashcards").
 	- e.g. xxx/index.html?flashcards=<URL_TO_JSON_FLASHCARD_COLLECTION>
 - Customize the UI style using CSS.
+- Python script to generate collections
+
+## Collection Generation
+1. Fill the "flashcard.txt" with your questions and answers folling this structure:
+
+```
+    question1 = answer1
+    question2 = answer2
+    ...
+    questionN = answerN
+```
+2. Execute the Python script.
 
 ## Changelog
+- 25/02/2023:
+	- Python script for collection generation.
 - 29/01/2023: 
 	- Load flashcards from url.
 	- Load flashcards using query param url.
